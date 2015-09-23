@@ -32,6 +32,7 @@
 		2385AB961BAA069C0052BD14 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB951BAA069C0052BD14 /* UIKit.framework */; };
 		2385AB981BAA06B20052BD14 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB971BAA06B20052BD14 /* OpenTok.framework */; };
 		23B529E21BB35E16002FC0AB /* PublisherDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B529E11BB35E16002FC0AB /* PublisherDataViewController.m */; };
+		23B529E81BB36FF9002FC0AB /* SubscriberDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B529E71BB36FF9002FC0AB /* SubscriberDataViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,8 @@
 		2385AB971BAA06B20052BD14 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		23B529E01BB35E16002FC0AB /* PublisherDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherDataViewController.h; sourceTree = "<group>"; };
 		23B529E11BB35E16002FC0AB /* PublisherDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherDataViewController.m; sourceTree = "<group>"; };
+		23B529E61BB36FF9002FC0AB /* SubscriberDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriberDataViewController.h; sourceTree = "<group>"; };
+		23B529E71BB36FF9002FC0AB /* SubscriberDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriberDataViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,8 @@
 				2385AB591BAA03AB0052BD14 /* ModelController.h */,
 				2385AB5A1BAA03AB0052BD14 /* ModelController.m */,
 				2385AB5C1BAA03AB0052BD14 /* Main.storyboard */,
+				23B529E61BB36FF9002FC0AB /* SubscriberDataViewController.h */,
+				23B529E71BB36FF9002FC0AB /* SubscriberDataViewController.m */,
 				23B529E01BB35E16002FC0AB /* PublisherDataViewController.h */,
 				23B529E11BB35E16002FC0AB /* PublisherDataViewController.m */,
 				2385AB4C1BAA03AB0052BD14 /* Supporting Files */,
@@ -306,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23B529E81BB36FF9002FC0AB /* SubscriberDataViewController.m in Sources */,
 				2385AB521BAA03AB0052BD14 /* AppDelegate.m in Sources */,
 				2385AB5B1BAA03AB0052BD14 /* ModelController.m in Sources */,
 				2385AB4F1BAA03AB0052BD14 /* main.m in Sources */,
