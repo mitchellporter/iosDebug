@@ -40,7 +40,6 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 
 @property (nonatomic) OTPublisher * publisher;
 @property (nonatomic) OTSubscriber * currentSubscriber;
-@property (readonly, strong, nonatomic) NSArray *pageData;
 @end
 
 @implementation ModelController
@@ -48,11 +47,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 - (instancetype)init {
     self = [super init];
     if (self) {
-        // Create the data model.
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        _pageData = [[dateFormatter monthSymbols] copy];
         
-
         allSubscribers = [[NSMutableDictionary alloc] init];
         allConnectionsIds = [[NSMutableArray alloc] init];
         backgroundConnectedStreams = [[NSMutableArray alloc] init];
@@ -89,44 +84,40 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 }
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard {
-    // Return the data view controller for the given index.
-    if (([self.pageData count] == 0) || (index >= [self.pageData count])) {
-        return nil;
-    }
 
+    UIViewController * baseViewController;
     currentIndex = index;
     
     if(currentIndex == PUBLISHER_INDEX) {
         // Create a new view controller and pass suitable data.
         PublisherDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"PublisherDataViewController"];
-        dataViewController.dataObject = self.pageData[index];
         self.delegate = dataViewController;
         _currentSubscriber = nil;
-        [self didReceiveVideo];
-        return dataViewController;
+        baseViewController =  dataViewController;
+
     } else  if (currentIndex > PUBLISHER_INDEX && currentIndex <= allSubscribers.count) {
         // Create a new view controller and pass suitable data.
         SubscriberDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"SubscriberDataViewController"];
-        dataViewController.dataObject = self.pageData[index];
         self.delegate = dataViewController;
 
         NSString *connectionId = allConnectionsIds[currentIndex-1];
         self.currentSubscriber = allSubscribers[connectionId];
-        [self didReceiveVideo];
-        return dataViewController;
+        baseViewController = dataViewController;
+    } else {
+        // OMG case
+        NSLog(@"%s OMG wrong index",__PRETTY_FUNCTION__);
+        baseViewController = nil;
+        self.publisher = nil;
+        self.currentSubscriber = nil;
     }
-    return nil;
+    
+    baseViewController.view.tag = currentIndex;
+    [self didReceiveVideo];
+    return baseViewController;
 }
 
 - (NSUInteger)indexOfViewController:(UIViewController *)viewController {
-    // Return the index of the given data view controller.
-    // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-    if(currentIndex == PUBLISHER_INDEX)
-    {
-        return [self.pageData indexOfObject:((PublisherDataViewController *)viewController).dataObject];
-    } else {
-        return [self.pageData indexOfObject:((SubscriberDataViewController *)viewController).dataObject];
-    }
+    return viewController.view.tag;
 }
 
 #pragma mark - Page View Controller Data Source
@@ -150,7 +141,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     }
     
     index++;
-    if (index == [self.pageData count]) {
+    if (index == allSubscribers.count+1) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];

@@ -11,7 +11,5 @@
 #import "ModelController.h"
 
 @interface SubscriberDataViewController : UIViewController <ModelControllerDelegate>
-@property (strong, nonatomic) IBOutlet UILabel *dataLabel;
-@property (strong, nonatomic) id dataObject;
 @property (strong, nonatomic) IBOutlet UIView *videoView;
 @end
