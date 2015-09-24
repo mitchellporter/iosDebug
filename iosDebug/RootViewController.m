@@ -11,7 +11,7 @@
 
 
 @interface RootViewController ()
-@property (strong, nonatomic) UIPageViewController *pageViewController;
+
 @property (readonly, strong, nonatomic) ModelController *modelController;
 @end
 
@@ -30,12 +30,7 @@
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self.modelController;
     
-    
-    UIViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
-    NSArray *viewControllers = @[startingViewController];
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-    
+    [self publisherAsFirstView];
 
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
@@ -50,15 +45,18 @@
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
+-(void) publisherAsFirstView
+{
+    UIViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+   
+}
 - (ModelController *)modelController {
 
     if (!_modelController) {
-        _modelController = [[ModelController alloc] init];
+        _modelController = [[ModelController alloc] initWithRootViewController:self];
     }
     return _modelController;
 }

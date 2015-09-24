@@ -8,20 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import <OpenTok/OpenTok.h>
+#import "RootViewController.h"
 
 
 @protocol ModelControllerDelegate;
 
 @interface ModelController : NSObject <UIPageViewControllerDataSource>
-@property(nonatomic, assign) id <ModelControllerDelegate> delegate;
 
+@property(nonatomic, weak) id <ModelControllerDelegate> delegate;
+
+- (instancetype)initWithRootViewController:(RootViewController *) rvc ;
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (NSUInteger)indexOfViewController:(UIViewController *)viewController;
 @end
 
 ////////
 @protocol ModelControllerDelegate <NSObject>
-- (void)sessionDidConnect:(OTSession*)session;
--(void) didReceivePublisherVideo:(OTPublisher*) pub subscriberVideo:(OTSubscriber*) sub;
-
+@optional
+- (void) modelController:(ModelController*)model sessionDidConnect:(OTSession*)session;
+- (void) modelController:(ModelController*)model didReceiveVideo:(id) objHavingVideoView;
 @end

@@ -22,26 +22,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void) viewDidAppear:(BOOL)animated
+{
+    [self.viewLoadingActivity startAnimating];
+    [super viewDidAppear:animated];
+}
 
 #pragma mark ModelControllerDelegate
-- (void)sessionDidConnect:(OTSession*)session
+#pragma mark ModelControllerDelegate
+-(void) modelController:(ModelController *)model sessionDidConnect:(OTSession *)session
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
 }
--(void) didReceivePublisherVideo:(OTPublisher *)publisher subscriberVideo:(OTSubscriber *)subscriber
+
+-(void) modelController:(ModelController *)model didReceiveVideo:(id)objHavingVideoView
 {
-    if(publisher && !subscriber)
-    {
-        [publisher.view setFrame:CGRectMake(0, 0, self.videoView.frame.size.width, self.videoView.frame.size.height)];
-        [self.videoView addSubview:publisher.view];
-        
-    } else if((publisher && subscriber) || (!publisher && subscriber))
-    {
-        
-        [subscriber.view setFrame:CGRectMake(0, 0, self.videoView.frame.size.width, self.videoView.frame.size.height)];
-        [self.videoView addSubview:subscriber.view];
-        
-    }
+    if(objHavingVideoView == nil) return;
+    
+    OTSubscriber * subscriber = (OTSubscriber *) objHavingVideoView;
+    [subscriber.view setFrame:CGRectMake(0, 0, self.videoView.frame.size.width, self.videoView.frame.size.height)];
+    [self.videoView addSubview:subscriber.view];
+    [self.viewLoadingActivity stopAnimating];
 }
 
 @end

@@ -12,4 +12,5 @@
 
 @interface PublisherDataViewController : UIViewController <ModelControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *videoView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *viewLoadingActivity;
 @end

@@ -10,6 +10,7 @@
 #import "PublisherDataViewController.h"
 #import "SubscriberDataViewController.h"
 
+
 #define PUBLISHER_INDEX     0
 
 /*
@@ -36,17 +37,21 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     OTSession* _session;
     NSUInteger currentIndex;  // 0 is pub , 1 to n sub
     
+    
 }
 
 @property (nonatomic) OTPublisher * publisher;
 @property (nonatomic) OTSubscriber * currentSubscriber;
+@property (nonatomic) RootViewController * rootViewController;
 @end
 
 @implementation ModelController
 
-- (instancetype)init {
+- (instancetype)initWithRootViewController:(RootViewController *) rvc {
     self = [super init];
     if (self) {
+        
+        self.rootViewController = rvc;
         
         allSubscribers = [[NSMutableDictionary alloc] init];
         allConnectionsIds = [[NSMutableArray alloc] init];
@@ -82,6 +87,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     }
     return self;
 }
+
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard {
 
@@ -146,6 +152,8 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
+
+
 #pragma mark Publishing
 -(void) didReceiveVideo
 {
@@ -153,9 +161,11 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
         // post a notification to the controller that video has arrived for this
         // subscriber. Useful for transitioning a "loading" UI.
         if ([self.delegate
-             respondsToSelector:@selector(didReceivePublisherVideo:subscriberVideo:)])
+             respondsToSelector:@selector(modelController:didReceiveVideo:)])
         {
-            [self.delegate didReceivePublisherVideo:self.publisher subscriberVideo:self.currentSubscriber];
+            [self.delegate modelController:self
+                           didReceiveVideo:currentIndex == PUBLISHER_INDEX? self.publisher:self.currentSubscriber];
+
         }
     });
     
@@ -200,6 +210,23 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 connectionDestroyed:(OTConnection *)connection
 {
     NSLog(@"connectionDestroyed: %@", connection);
+    // get subscriber for this stream
+    OTSubscriber *subscriber = allSubscribers[connection.connectionId];
+    if(subscriber)
+    {
+        [allSubscribers removeObjectForKey:connection.connectionId];
+        [allConnectionsIds removeObject:connection.connectionId];
+        _currentSubscriber = nil;
+        
+        //adjust subscriber indices
+        [allConnectionsIds enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            OTSubscriber * subscriber = allSubscribers[allConnectionsIds[idx]];
+            subscriber.view.tag = idx +1 ; //as 0 is publisher
+        }];
+        [self.rootViewController publisherAsFirstView];
+}
+    
+
 }
 
 - (void)session:(OTSession *)session
@@ -288,10 +315,6 @@ connectionCreated:(OTConnection *)connection
     OTSubscriber *sub = (OTSubscriber *)subscriber;
     [allSubscribers setObject:subscriber forKey:sub.stream.connection.connectionId];
     [allConnectionsIds addObject:sub.stream.connection.connectionId];
-   
-    self.currentSubscriber = sub;
-    [self didReceiveVideo];
-
 }
 
 - (void)subscriber:(OTSubscriberKit*)subscriber
