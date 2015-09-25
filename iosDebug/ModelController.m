@@ -87,6 +87,16 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     return self;
 }
 
+#pragma mark PageViewControllerDataSource
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return allSubscribers.count + 1;
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return currentIndex;
+}
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard {
 

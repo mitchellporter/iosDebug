@@ -67,7 +67,6 @@
 }
 
 #pragma mark - UIPageViewController delegate methods
-
 - (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation {
     // Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
     UIViewController *currentViewController = self.pageViewController.viewControllers[0];
