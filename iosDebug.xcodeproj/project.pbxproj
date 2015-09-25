@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23085D111BB5FEEA0030D573 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23085D101BB5FEEA0030D573 /* OpenTok.framework */; };
 		2385AB4F1BAA03AB0052BD14 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2385AB4E1BAA03AB0052BD14 /* main.m */; };
 		2385AB521BAA03AB0052BD14 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2385AB511BAA03AB0052BD14 /* AppDelegate.m */; };
 		2385AB551BAA03AB0052BD14 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2385AB541BAA03AB0052BD14 /* RootViewController.m */; };
@@ -28,7 +29,6 @@
 		2385AB921BAA06880052BD14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB911BAA06880052BD14 /* Foundation.framework */; };
 		2385AB941BAA06940052BD14 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB931BAA06940052BD14 /* CoreGraphics.framework */; };
 		2385AB961BAA069C0052BD14 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB951BAA069C0052BD14 /* UIKit.framework */; };
-		2385AB981BAA06B20052BD14 /* OpenTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2385AB971BAA06B20052BD14 /* OpenTok.framework */; };
 		23B529E21BB35E16002FC0AB /* PublisherDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B529E11BB35E16002FC0AB /* PublisherDataViewController.m */; };
 		23B529E81BB36FF9002FC0AB /* SubscriberDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B529E71BB36FF9002FC0AB /* SubscriberDataViewController.m */; };
 		23B529EA1BB47B0B002FC0AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B529E91BB47B0B002FC0AB /* libc++.tbd */; };
@@ -45,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23085D101BB5FEEA0030D573 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		2385AB491BAA03AB0052BD14 /* iosDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2385AB4D1BAA03AB0052BD14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2385AB4E1BAA03AB0052BD14 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -73,7 +74,6 @@
 		2385AB911BAA06880052BD14 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2385AB931BAA06940052BD14 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2385AB951BAA069C0052BD14 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2385AB971BAA06B20052BD14 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenTok.framework; sourceTree = "<group>"; };
 		23B529E01BB35E16002FC0AB /* PublisherDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherDataViewController.h; sourceTree = "<group>"; };
 		23B529E11BB35E16002FC0AB /* PublisherDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherDataViewController.m; sourceTree = "<group>"; };
 		23B529E61BB36FF9002FC0AB /* SubscriberDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriberDataViewController.h; sourceTree = "<group>"; };
@@ -87,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B529EA1BB47B0B002FC0AB /* libc++.tbd in Frameworks */,
+				23085D111BB5FEEA0030D573 /* OpenTok.framework in Frameworks */,
 				2385AB961BAA069C0052BD14 /* UIKit.framework in Frameworks */,
 				2385AB941BAA06940052BD14 /* CoreGraphics.framework in Frameworks */,
 				2385AB921BAA06880052BD14 /* Foundation.framework in Frameworks */,
@@ -99,7 +100,6 @@
 				2385AB841BAA06480052BD14 /* SystemConfiguration.framework in Frameworks */,
 				2385AB821BAA063D0052BD14 /* GLKit.framework in Frameworks */,
 				2385AB7D1BAA061A0052BD14 /* CoreVideo.framework in Frameworks */,
-				2385AB981BAA06B20052BD14 /* OpenTok.framework in Frameworks */,
 				2385AB7E1BAA061A0052BD14 /* VideoToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,8 +183,8 @@
 		2385AB781BAA05E40052BD14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23085D101BB5FEEA0030D573 /* OpenTok.framework */,
 				23B529E91BB47B0B002FC0AB /* libc++.tbd */,
-				2385AB971BAA06B20052BD14 /* OpenTok.framework */,
 				2385AB951BAA069C0052BD14 /* UIKit.framework */,
 				2385AB931BAA06940052BD14 /* CoreGraphics.framework */,
 				2385AB911BAA06880052BD14 /* Foundation.framework */,
@@ -246,7 +246,7 @@
 		2385AB411BAA03AB0052BD14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Jaideep Shah";
 				TargetAttributes = {
 					2385AB481BAA03AB0052BD14 = {
@@ -375,6 +375,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -444,6 +445,7 @@
 				);
 				INFOPLIST_FILE = iosDebug/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.opentok.jaideep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -458,6 +460,7 @@
 				);
 				INFOPLIST_FILE = iosDebug/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.opentok.jaideep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -466,16 +469,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = iosDebugTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.opentok.jaideep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosDebug.app/iosDebug";
 			};
@@ -485,12 +486,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = iosDebugTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.opentok.jaideep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosDebug.app/iosDebug";
 			};

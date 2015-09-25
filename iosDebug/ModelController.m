@@ -9,7 +9,8 @@
 #import "ModelController.h"
 #import "PublisherDataViewController.h"
 #import "SubscriberDataViewController.h"
-
+#import "RootViewController.h"
+#import <OpenTok/OpenTok.h>
 
 #define PUBLISHER_INDEX     0
 
@@ -42,7 +43,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 
 @property (nonatomic) OTPublisher * publisher;
 @property (nonatomic) OTSubscriber * currentSubscriber;
-@property (nonatomic) RootViewController * rootViewController;
+
 @end
 
 @implementation ModelController
@@ -50,9 +51,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 - (instancetype)initWithRootViewController:(RootViewController *) rvc {
     self = [super init];
     if (self) {
-        
-        self.rootViewController = rvc;
-        
+        self.rootViewControllerDelegate = rvc;
         allSubscribers = [[NSMutableDictionary alloc] init];
         allConnectionsIds = [[NSMutableArray alloc] init];
         backgroundConnectedStreams = [[NSMutableArray alloc] init];
@@ -97,14 +96,14 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     if(currentIndex == PUBLISHER_INDEX) {
         // Create a new view controller and pass suitable data.
         PublisherDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"PublisherDataViewController"];
-        self.delegate = dataViewController;
+        dataViewController.dataSource  = self;
         _currentSubscriber = nil;
         baseViewController =  dataViewController;
 
     } else  if (currentIndex > PUBLISHER_INDEX && currentIndex <= allSubscribers.count) {
         // Create a new view controller and pass suitable data.
         SubscriberDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"SubscriberDataViewController"];
-        self.delegate = dataViewController;
+        dataViewController.dataSource  = self;
 
         NSString *connectionId = allConnectionsIds[currentIndex-1];
         self.currentSubscriber = allSubscribers[connectionId];
@@ -118,7 +117,7 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
     }
     
     baseViewController.view.tag = currentIndex;
-    [self didReceiveVideo];
+    [self didReceiveVideo:baseViewController];
     return baseViewController;
 }
 
@@ -155,16 +154,26 @@ static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaH
 
 
 #pragma mark Publishing
--(void) didReceiveVideo
+-(void) didReceiveVideo : (UIViewController *) controller
 {
     dispatch_async(dispatch_get_main_queue(), ^() {
-        // post a notification to the controller that video has arrived for this
-        // subscriber. Useful for transitioning a "loading" UI.
-        if ([self.delegate
-             respondsToSelector:@selector(modelController:didReceiveVideo:)])
+        PublisherDataViewController * publisherController;
+        SubscriberDataViewController * subscribeController;
+        if(currentIndex == PUBLISHER_INDEX)
         {
-            [self.delegate modelController:self
-                           didReceiveVideo:currentIndex == PUBLISHER_INDEX? self.publisher:self.currentSubscriber];
+            publisherController = (PublisherDataViewController *) controller;
+            if ([publisherController respondsToSelector:@selector(modelController:didReceiveVideo:)])
+            {
+                [publisherController modelController:self didReceiveVideo: self.publisher];
+            }
+
+        } else {
+            subscribeController = (SubscriberDataViewController *) controller;
+            if ([subscribeController respondsToSelector:@selector(modelController:didReceiveVideo:)])
+            {
+                [subscribeController modelController:self didReceiveVideo:self.currentSubscriber];
+                
+            }
 
         }
     });
@@ -223,7 +232,14 @@ connectionDestroyed:(OTConnection *)connection
             OTSubscriber * subscriber = allSubscribers[allConnectionsIds[idx]];
             subscriber.view.tag = idx +1 ; //as 0 is publisher
         }];
-        [self.rootViewController publisherAsFirstView];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if ([self.rootViewControllerDelegate respondsToSelector:@selector(modelController:jumpToPageView:)])
+            {
+                [self.rootViewControllerDelegate modelController:self jumpToPageView:PUBLISHER_INDEX];
+            }
+
+        });
+
 }
     
 
@@ -261,7 +277,14 @@ connectionCreated:(OTConnection *)connection
 {
     if(currentIndex == PUBLISHER_INDEX) {
         self.currentSubscriber = nil;
-        [self didReceiveVideo];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if ([self.rootViewControllerDelegate respondsToSelector:@selector(modelController:jumpToPageView:)])
+            {
+                [self.rootViewControllerDelegate modelController:self jumpToPageView:PUBLISHER_INDEX];
+            }
+
+            
+        });
     }
 }
 
@@ -315,6 +338,16 @@ connectionCreated:(OTConnection *)connection
     OTSubscriber *sub = (OTSubscriber *)subscriber;
     [allSubscribers setObject:subscriber forKey:sub.stream.connection.connectionId];
     [allConnectionsIds addObject:sub.stream.connection.connectionId];
+    
+    dispatch_async(dispatch_get_main_queue(), ^() {
+
+        if ([self.rootViewControllerDelegate respondsToSelector:@selector(modelController:jumpToPageView:)])
+        {
+            [self.rootViewControllerDelegate modelController:self jumpToPageView:allSubscribers.count];
+        }
+
+    });
+
 }
 
 - (void)subscriber:(OTSubscriberKit*)subscriber

@@ -30,8 +30,8 @@
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self.modelController;
     
-    [self publisherAsFirstView];
-
+    [self  modelController:nil jumpToPageView:0];
+ 
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
 
@@ -43,20 +43,25 @@
 
     // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
+    
+   
+
 }
 
-
--(void) publisherAsFirstView
+//- (void) modelController:(ModelController *)model jumpToPageView:(NSUInteger) index
+- (void) modelController:(ModelController *)model jumpToPageView:(NSUInteger) index;
 {
-    UIViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
+    UIViewController *startingViewController = [self.modelController viewControllerAtIndex:index storyboard:self.storyboard];
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
    
 }
+
 - (ModelController *)modelController {
 
     if (!_modelController) {
         _modelController = [[ModelController alloc] initWithRootViewController:self];
+        
     }
     return _modelController;
 }

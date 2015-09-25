@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UIViewController <UIPageViewControllerDelegate>
-@property (strong, nonatomic) UIPageViewController *pageViewController;
--(void) publisherAsFirstView;
+@class RootViewController,ModelController;
+
+@protocol RootViewControllerDelegate <NSObject>
+@optional
+- (void) modelController:(ModelController *)model jumpToPageView:(NSUInteger) index;
 @end
 
+
+@interface RootViewController : UIViewController <UIPageViewControllerDelegate , RootViewControllerDelegate>
+@property (strong, nonatomic) UIPageViewController *pageViewController;
+@end
+
+////////

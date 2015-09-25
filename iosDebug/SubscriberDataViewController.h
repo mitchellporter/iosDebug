@@ -10,7 +10,8 @@
 #import <OpenTok/OpenTok.h>
 #import "ModelController.h"
 
-@interface SubscriberDataViewController : UIViewController <ModelControllerDelegate>
+@interface SubscriberDataViewController : UIViewController <ModelControllerDataSource>
+@property(nonatomic, weak) id <ModelControllerDataSource> dataSource;
 @property (strong, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *viewLoadingActivity;
 @end

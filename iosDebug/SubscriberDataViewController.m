@@ -28,12 +28,8 @@
     [super viewDidAppear:animated];
 }
 
-#pragma mark ModelControllerDelegate
-#pragma mark ModelControllerDelegate
--(void) modelController:(ModelController *)model sessionDidConnect:(OTSession *)session
-{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-}
+#pragma mark ModelControllerDataSource
+
 
 -(void) modelController:(ModelController *)model didReceiveVideo:(id)objHavingVideoView
 {
