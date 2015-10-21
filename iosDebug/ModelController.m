@@ -24,9 +24,9 @@
  */
 static NSString* const kApiKey = @"100";
 // Replace with your generated session ID
-static NSString* const kSessionId = @"2_MX4xMDB-fjE0NDI0MzUzMDY3MjV-Q3FqYVhGVjRDUmR0WnVwT3I3alpWV0RSfn4";
+static NSString* const kSessionId = @"2_MX4xMDB-fjE0NDU0NjAyMTE2NTZ-S09vM3dCWDdwU1VtRWpFK2RIL2VZRCtvfn4";
 // Replace with your generated token
-static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9YjQyZjYwMDUzZGUzMjMxZTE4MTY5ZDY2M2UxNzJmMjRiNWNkZTBmMjpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTkRJME16VXpNRFkzTWpWLVEzRnFZVmhHVmpSRFVtUjBXblZ3VDNJM2FscFdWMFJTZm40JmNyZWF0ZV90aW1lPTE0NDI0MzQwMTQmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ0MjQzNDAxNC43ODk2MTA1NDI1MTIxNyZleHBpcmVfdGltZT0xNDQ1MDI2MDE0";
+static NSString* const kToken = @"T1==cGFydG5lcl9pZD0xMDAmc2RrX3ZlcnNpb249dGJwaHAtdjAuOTEuMjAxMS0wNy0wNSZzaWc9Nzg1M2ZjN2JkMTM0YWNhZDYwZTE5MjkzYWVjM2ZlMGNhZTA4ZDYwYjpzZXNzaW9uX2lkPTJfTVg0eE1EQi1makUwTkRVME5qQXlNVEUyTlRaLVMwOXZNM2RDV0Rkd1UxVnRSV3BGSzJSSUwyVlpSQ3R2Zm40JmNyZWF0ZV90aW1lPTE0NDU0NTg3Nzkmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTQ0NTQ1ODc3OS45Mzk3MzkyODExODM4JmV4cGlyZV90aW1lPTE0NDgwNTA3Nzk=";
 
 
 @interface ModelController () <OTSessionDelegate, OTSubscriberKitDelegate, OTPublisherDelegate>

@@ -24,7 +24,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
     self.pageViewController = [[UIPageViewController alloc]
-                               initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                               initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl
+                               //initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                                navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                                options:nil];
     self.pageViewController.delegate = self;
@@ -40,12 +41,6 @@
     self.pageViewController.view.frame = pageViewRect;
 
     [self.pageViewController didMoveToParentViewController:self];
-
-    // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-    self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
-    
-   
-
 }
 
 //- (void) modelController:(ModelController *)model jumpToPageView:(NSUInteger) index
